@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DEV001 - Unit 03 - Angular Interfaces, Services & HTTP</title>
+    <link rel="stylesheet" href="_css/styles.css" type="text/css" />
+  </head>
+
+  <body>
+    <header class="header">
+      <img
+        class="header-banner img-bw"
+        src="_images/angular_low.png"
+        alt="Angular Logo"
+      />
+      <h1 class="header-text">
+        DEV001: Unit 03 - Angular Interfaces, Services & HTTP
+      </h1>
+    </header>
+
+    <main class="main-content">
+      <!-- Sidebar Navigating-->
+      <section id="sidenavbar">
+        <article>
+          <aside class="sidebar">
+            <ul>
+              <li><a href="deventures.html">Dev Adventures</a></li>
+              <li><a href="unit01.html">Unit 01</a></li>
+              <li><a href="unit02.html">Unit 02</a></li>
+              <li><a href="unit03.html">Unit 03</a></li>
+              <li><a href="unit04.html">Unit 04</a></li>
+              <li><a href="https://deyvidsantos.vercel.app/">Blog</a></li>
+              <li><a href="https://github.com/deyvidsalvatore">Github</a></li>
+              <li><a href="index.html">Course Home</a></li>
+            </ul>
+          </aside>
+        </article>
+      </section>
+      <section id="unit-overview" class="section">
+        <h2 class="section-title">Unit 03 Overview</h2>
+        <p class="section-text">
+          Welcome to Unit 03 of
+          <strong>DEV001: Angular Essential Training</strong>! In this unit, we
+          will explore Angular interfaces, services, and HTTP communication.
+          You'll learn how to define and use TypeScript interfaces, create and
+          inject services, and perform HTTP requests to interact with backend
+          APIs.
+        </p>
+      </section>
+
+      <section id="interfaces" class="section">
+        <h2 class="section-title">Understanding Interfaces</h2>
+        <p class="section-text">
+          TypeScript interfaces are used to define the shape of data structures
+          and ensure type safety in your Angular application. They are
+          particularly useful for defining models that represent data entities
+          in your application.
+        </p>
+        <h3 class="subsection-title">Defining an Interface</h3>
+        <p class="section-text">
+          To define an interface in TypeScript, use the
+          <code class="code-snippet">interface</code>
+          keyword followed by the name of the interface and its properties.
+        </p>
+        <pre class="code-block">
+<code>
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+</code>
+      </pre>
+        <p class="section-text">
+          In this example, the <code class="code-snippet">User</code> interface
+          defines a user with an <code class="code-snippet">id</code>,
+          <code class="code-snippet">name</code>, and
+          <code class="code-snippet">email</code>.
+        </p>
+        <h3 class="subsection-title">Using Interfaces in Components</h3>
+        <p class="section-text">
+          You can use interfaces to type-check data within your Angular
+          components and services.
+        </p>
+        <pre class="code-block">
+<code>
+import { Component, OnInit } from '@angular/core';
+import { User } from './user.model';
+
+@Component({
+  selector: 'app-user-profile',
+  templateUrl: './user-profile.component.html',
+})
+export class UserProfileComponent implements OnInit {
+  user: User;
+
+  ngOnInit() {
+    this.user = {
+      id: 1,
+      name: 'John Doe',
+      email: 'john.doe@example.com'
+    };
+  }
+}
+</code>
+      </pre>
+      </section>
+
+      <section id="services" class="section">
+        <h2 class="section-title">Creating and Using Services</h2>
+        <p class="section-text">
+          Services in Angular are used to encapsulate business logic and data
+          management. They are typically used to share data between components
+          or to perform operations such as API calls.
+        </p>
+        <h3 class="subsection-title">Creating a Service</h3>
+        <p class="section-text">
+          To create a service in Angular, use the Angular CLI command
+          <code class="code-snippet">ng generate service</code>.
+        </p>
+        <pre class="code-block">
+<code>
+ng generate service user
+</code>
+      </pre>
+        <p class="section-text">
+          This command generates a service file with a TypeScript class that you
+          can use to implement data management or business logic.
+        </p>
+        <h3 class="subsection-title">Injecting and Using a Service</h3>
+        <p class="section-text">
+          Services are injected into components using Angular’s dependency
+          injection system. Here’s an example of a service and how it can be
+          used in a component:
+        </p>
+        <pre class="code-block">
+<code>
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserService {
+  getUser(id: number) {
+    // Mocked user data for illustration
+    return {
+      id,
+      name: 'Jane Doe',
+      email: 'jane.doe@example.com'
+    };
+  }
+}
+</code>
+      </pre>
+        <pre class="code-block">
+<code>
+import { Component, OnInit } from '@angular/core';
+import { UserService } from './user.service';
+import { User } from './user.model';
+
+@Component({
+  selector: 'app-user-profile',
+  templateUrl: './user-profile.component.html',
+})
+export class UserProfileComponent implements OnInit {
+  user: User;
+
+  constructor(private userService: UserService) {}
+
+  ngOnInit() {
+    this.user = this.userService.getUser(1);
+  }
+}
+</code>
+      </pre>
+      </section>
+
+      <section id="http" class="section">
+        <h2 class="section-title">Making HTTP Requests</h2>
+        <p class="section-text">
+          Angular provides the
+          <code class="code-snippet">HttpClient</code> module to make HTTP
+          requests to remote servers. This module simplifies the process of
+          sending HTTP requests and handling responses.
+        </p>
+        <h3 class="subsection-title">Importing and Configuring HttpClient</h3>
+        <p class="section-text">
+          To use <code class="code-snippet">HttpClient</code>, import the
+          <code class="code-snippet">HttpClientModule</code> in your
+          <code class="code-snippet">AppModule</code>.
+        </p>
+        <pre class="code-block">
+<code>
+import { HttpClientModule } from '@angular/common/http';
+
+@NgModule({
+  declarations: [ /* Your components */ ],
+  imports: [ HttpClientModule ],
+  providers: [],
+  bootstrap: [ /* Your root component */ ]
+})
+export class AppModule { }
+</code>
+      </pre>
+        <h3 class="subsection-title">Making a GET Request</h3>
+        <p class="section-text">
+          Here’s an example of how to use the
+          <code class="code-snippet">HttpClient</code> to make a GET request to
+          fetch data from a server:
+        </p>
+        <pre class="code-block">
+<code>
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { User } from './user.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserService {
+  private apiUrl = 'https://api.example.com/users';
+
+  constructor(private http: HttpClient) {}
+
+  getUser(id: number): Observable&lt;User&gt; {
+    return this.http.get&lt;User&gt;(`${this.apiUrl}/${id}`);
+  }
+}
+</code>
+</pre>
+        <h3 class="subsection-title">Handling Responses</h3>
+        <p class="section-text">
+          You can subscribe to the Observable returned by
+          <code class="code-snippet">HttpClient</code>
+          methods to handle the response.
+        </p>
+        <pre class="code-block">
+<code>
+import { Component, OnInit } from '@angular/core';
+import { UserService } from './user.service';
+import { User } from './user.model';
+
+@Component({
+  selector: 'app-user-profile',
+  templateUrl: './user-profile.component.html',
+})
+export class UserProfileComponent implements OnInit {
+  user: User;
+
+  constructor(private userService: UserService) {}
+
+  ngOnInit() {
+    this.userService.getUser(1).subscribe(
+      (data: User) => this.user = data,
+      (error) => console.error('Error fetching user:', error)
+    );
+  }
+}
+</code>
+      </pre>
+      </section>
+
+      <section id="best-practices" class="section">
+        <h2 class="section-title">Best Practices for Services and HTTP</h2>
+        <p class="section-text">
+          To ensure your Angular application is robust and maintainable, follow
+          these best practices when working with services and HTTP requests:
+        </p>
+        <ul class="section-list">
+          <li class="section-list-item">
+            <strong>Encapsulate Business Logic:</strong> Keep business logic in
+            services rather than components to ensure separation of concerns and
+            easier testing.
+          </li>
+          <li class="section-list-item">
+            <strong>Use Interfaces for Type Safety:</strong> Define interfaces
+            for data models to leverage TypeScript's type checking and improve
+            code reliability.
+          </li>
+          <li class="section-list-item">
+            <strong>Handle HTTP Errors:</strong> Implement error handling in
+            your service methods to manage failed requests and provide user
+            feedback.
+          </li>
+          <li class="section-list-item">
+            <strong>Unsubscribe from Observables:</strong> Use Angular's
+            <code class="code-snippet">takeUntil</code> or other mechanisms to
+            unsubscribe from Observables to prevent memory leaks.
+          </li>
+        </ul>
+      </section>
+
+      <section id="summary" class="section">
+        <h2 class="section-title">Summary</h2>
+        <p class="section-text">
+          In this unit, you have learned about Angular interfaces, services, and
+          HTTP communication. By understanding how to define and use interfaces,
+          create and inject services, and make HTTP requests, you can build more
+          robust and scalable Angular applications. In the next unit, we will
+          explore Angular routing and navigation to manage application views and
+          navigation.
+        </p>
+        <p class="section-text">
+          Be sure to complete the exercises provided in the
+          <strong>Resources</strong> section to reinforce your understanding of
+          these concepts and practices.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <ul class="footer-nav">
+        <li class="footer-nav-item">
+          <a href="contact.html" class="footer-link">Contact Information</a>
+        </li>
+        <li class="footer-nav-item">
+          <a href="index.html" class="footer-link">Course Home</a>
+        </li>
+        <li class="footer-nav-item">
+          <a
+            href="https://github.com/deyvidsalvatore"
+            class="footer-link"
+            target="_blank"
+            >Instructor Github</a
+          >
+        </li>
+        <li class="footer-nav-item">
+          <a
+            href="https://linkedin.com/in/deyvidsantosdevops"
+            class="footer-link"
+            target="_blank"
+            >Linkedin</a
+          >
+        </li>
+      </ul>
+      <p class="footer-text">
+        <em>DevAdventures - Learning For Free &copy; 2024</em>
+      </p>
+    </footer>
+  </body>
+</html>

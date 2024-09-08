@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DEV001 - Unit 02 - Angular Components & Lifecycle</title>
+    <link rel="stylesheet" href="_css/styles.css" type="text/css" />
+    <link rel="stylesheet" href="_css/print.css" type="text/css" />
+  </head>
+
+  <body>
+    <header class="header">
+      <img
+        class="header-banner img-bw"
+        src="_images/angular_low.png"
+        alt="Angular Logo"
+      />
+      <h1 class="header-text">
+        DEV001: Unit 02 - Angular Components & Lifecycle
+      </h1>
+    </header>
+
+    <main class="main-content">
+      <!-- Sidebar Navigating-->
+      <section id="sidenavbar">
+        <article>
+          <aside class="sidebar">
+            <ul>
+              <li><a href="deventures.html">Dev Adventures</a></li>
+              <li><a href="unit01.html">Unit 01</a></li>
+              <li><a href="unit02.html">Unit 02</a></li>
+              <li><a href="unit03.html">Unit 03</a></li>
+              <li><a href="unit04.html">Unit 04</a></li>
+              <li><a href="https://deyvidsantos.vercel.app/">Blog</a></li>
+              <li><a href="https://github.com/deyvidsalvatore">Github</a></li>
+              <li><a href="index.html">Course Home</a></li>
+            </ul>
+          </aside>
+        </article>
+      </section>
+      <section id="unit-overview" class="section">
+        <h2 class="section-title">Unit 02 Overview</h2>
+        <p class="section-text">
+          Welcome to Unit 02 of
+          <strong>DEV001: Angular Essential Training</strong>! In this unit, we
+          will dive deeper into Angular components and their lifecycle. You will
+          learn how to leverage Angular’s component lifecycle hooks to manage
+          component behavior throughout its existence, from creation to
+          destruction.
+        </p>
+      </section>
+
+      <section id="component-architecture" class="section">
+        <h2 class="section-title">Understanding Component Architecture</h2>
+        <p class="section-text">
+          Components in Angular are the fundamental building blocks of an
+          application. Each component encapsulates its own HTML, CSS, and
+          TypeScript code, making it a reusable and maintainable unit of code.
+          Angular's component architecture is built on the following key
+          principles:
+        </p>
+        <ul class="section-list">
+          <li class="section-list-item">
+            <strong>Encapsulation:</strong> Components encapsulate their logic,
+            view, and styles, which enhances modularity.
+          </li>
+          <li class="section-list-item">
+            <strong>Reusability:</strong> Components can be reused across
+            different parts of an application or even in different projects.
+          </li>
+          <li class="section-list-item">
+            <strong>Composition:</strong> Components can be nested within other
+            components to build complex UIs.
+          </li>
+        </ul>
+      </section>
+
+      <section id="component-lifecycle" class="section">
+        <h2 class="section-title">Component Lifecycle</h2>
+        <p class="section-text">
+          Angular components go through a series of lifecycle phases from
+          creation to destruction. Each phase offers lifecycle hooks that allow
+          you to perform actions at specific points in the component’s
+          lifecycle. Here’s a brief overview of the key lifecycle hooks:
+        </p>
+        <ul class="section-list">
+          <li class="section-list-item">
+            <strong>ngOnInit:</strong> Called once after the component is
+            initialized. Ideal for initialization logic.
+          </li>
+          <li class="section-list-item">
+            <strong>ngOnChanges:</strong> Called when an input property value
+            changes. Useful for reacting to changes in data-bound properties.
+          </li>
+          <li class="section-list-item">
+            <strong>ngDoCheck:</strong> Called during every change detection
+            run. Allows for custom change detection.
+          </li>
+          <li class="section-list-item">
+            <strong>ngAfterContentInit:</strong> Called after Angular projects
+            external content into the component’s view.
+          </li>
+          <li class="section-list-item">
+            <strong>ngAfterContentChecked:</strong> Called after the content has
+            been checked by the change detection mechanism.
+          </li>
+          <li class="section-list-item">
+            <strong>ngAfterViewInit:</strong> Called after Angular initializes
+            the component’s views and child views.
+          </li>
+          <li class="section-list-item">
+            <strong>ngAfterViewChecked:</strong> Called after the view and child
+            views have been checked.
+          </li>
+          <li class="section-list-item">
+            <strong>ngOnDestroy:</strong> Called just before Angular destroys
+            the component. Ideal for cleanup logic.
+          </li>
+        </ul>
+      </section>
+
+      <section id="example-lifecycle" class="section">
+        <h2 class="section-title">Example: Component Lifecycle Hooks</h2>
+        <p class="section-text">
+          Here’s an example of an Angular component that utilizes several
+          lifecycle hooks:
+        </p>
+        <pre class="code-block">
+<code>
+import { Component, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
+
+@Component({
+  selector: 'app-lifecycle-demo',
+  template: '&lt;div&gt;Lifecycle Demo Component&lt;/div&gt;',
+})
+export class LifecycleDemoComponent implements OnInit, OnDestroy, OnChanges {
+  ngOnInit() {
+    console.log('ngOnInit: Component initialized');
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('ngOnChanges: Changes detected', changes);
+  }
+
+  ngOnDestroy() {
+    console.log('ngOnDestroy: Component about to be destroyed');
+  }
+}
+</code>
+      </pre>
+        <p class="section-text">In this example:</p>
+        <ul class="section-list">
+          <li class="section-list-item">
+            The <code class="code-snippet">ngOnInit</code> hook logs a message
+            when the component is initialized.
+          </li>
+          <li class="section-list-item">
+            The <code class="code-snippet">ngOnChanges</code> hook logs changes
+            detected in input properties.
+          </li>
+          <li class="section-list-item">
+            The <code class="code-snippet">ngOnDestroy</code> hook logs a
+            message when the component is about to be destroyed.
+          </li>
+        </ul>
+      </section>
+
+      <section id="best-practices" class="section">
+        <h2 class="section-title">Best Practices for Using Lifecycle Hooks</h2>
+        <p class="section-text">
+          To make the most of Angular’s lifecycle hooks, consider the following
+          best practices:
+        </p>
+        <ul class="section-list">
+          <li class="section-list-item">
+            <strong
+              >Use <code class="code-snippet">ngOnInit</code> for
+              Initialization:</strong
+            >
+            Place initialization logic and data fetching in
+            <code class="code-snippet">ngOnInit</code> to ensure the component
+            is fully set up before performing these actions.
+          </li>
+          <li class="section-list-item">
+            <strong
+              >Manage Resources in
+              <code class="code-snippet">ngOnDestroy</code>:</strong
+            >
+            Clean up resources, such as subscriptions and timers, in
+            <code class="code-snippet">ngOnDestroy</code> to avoid memory leaks.
+          </li>
+          <li class="section-list-item">
+            <strong>Optimize Change Detection:</strong> Use
+            <code class="code-snippet">ngDoCheck</code> only if necessary, as it
+            can impact performance due to frequent calls.
+          </li>
+          <li class="section-list-item">
+            <strong
+              >Avoid Expensive Operations in
+              <code class="code-snippet">ngAfterViewInit</code>:</strong
+            >
+            Avoid performing expensive operations in
+            <code class="code-snippet">ngAfterViewInit</code>, as it might
+            affect the application’s performance.
+          </li>
+          <li class="section-list-item">
+            <strong>Debounce Input Changes:</strong> Use
+            <code class="code-snippet">ngOnChanges</code> efficiently by
+            debouncing frequent changes to avoid performance bottlenecks.
+          </li>
+        </ul>
+      </section>
+
+      <section id="summary" class="section">
+        <h2 class="section-title">Summary</h2>
+        <p class="section-text">
+          In this unit, you have learned about Angular components and their
+          lifecycle hooks. By understanding how to utilize these hooks
+          effectively, you can better manage component behavior and optimize
+          your Angular applications. In the next unit, we will explore Angular
+          routing and how to manage navigation within your application.
+        </p>
+        <p class="section-text">
+          Be sure to complete the exercises provided in the
+          <strong>Resources</strong> section to reinforce your understanding of
+          component lifecycle management and best practices.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <ul class="footer-nav">
+        <li class="footer-nav-item">
+          <a href="contact.html" class="footer-link">Contact Information</a>
+        </li>
+        <li class="footer-nav-item">
+          <a href="index.html" class="footer-link">Course Home</a>
+        </li>
+        <li class="footer-nav-item">
+          <a
+            href="https://github.com/deyvidsalvatore"
+            class="footer-link"
+            target="_blank"
+            >Instructor Github</a
+          >
+        </li>
+        <li class="footer-nav-item">
+          <a
+            href="https://linkedin.com/in/deyvidsantosdevops"
+            class="footer-link"
+            target="_blank"
+            >Linkedin</a
+          >
+        </li>
+      </ul>
+      <p class="footer-text">
+        <em>DevAdventures - Learning For Free &copy; 2024</em>
+      </p>
+    </footer>
+  </body>
+</html>

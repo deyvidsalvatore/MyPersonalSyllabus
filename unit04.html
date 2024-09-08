@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DEV001 - Unit 04 - Building a Simple CRUD App</title>
+    <link rel="stylesheet" href="_css/styles.css" type="text/css" />
+    <style>
+      .code-block {
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        overflow-x: auto;
+        font-family: monospace;
+        white-space: pre-wrap;
+      }
+
+      .code-snippet {
+        color: #d73a49;
+        font-weight: bold;
+      }
+
+      .section {
+        margin-bottom: 30px;
+      }
+
+      .section-title {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+      }
+
+      .subsection-title {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+      }
+
+      .section-text,
+      .section-list-item {
+        line-height: 1.6;
+      }
+
+      .section-list {
+        list-style: disc;
+        margin-left: 20px;
+      }
+
+      .section-list-item {
+        margin-bottom: 10px;
+      }
+
+      .code-block pre {
+        white-space: pre-wrap;
+        overflow: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="header">
+      <img
+        class="header-banner img-bw"
+        src="_images/angular_low.png"
+        alt="Angular Logo"
+      />
+      <h1 class="header-text">DEV001: Unit 04 - Building a Simple CRUD App</h1>
+    </header>
+
+    <main class="main-content">
+      <!-- Sidebar Navigating-->
+      <section id="sidenavbar">
+        <article>
+          <aside class="sidebar">
+            <ul>
+              <li><a href="deventures.html">Dev Adventures</a></li>
+              <li><a href="unit01.html">Unit 01</a></li>
+              <li><a href="unit02.html">Unit 02</a></li>
+              <li><a href="unit03.html">Unit 03</a></li>
+              <li><a href="unit04.html">Unit 04</a></li>
+              <li><a href="https://deyvidsantos.vercel.app/">Blog</a></li>
+              <li><a href="https://github.com/deyvidsalvatore">Github</a></li>
+              <li><a href="index.html">Course Home</a></li>
+            </ul>
+          </aside>
+        </article>
+      </section>
+      <section id="unit-overview" class="section">
+        <h2 class="section-title">Unit 04 Overview</h2>
+        <p class="section-text">
+          Welcome to Unit 04 of
+          <strong>DEV001: Angular Essential Training</strong>! In this unit, you
+          will learn how to build a simple CRUD (Create, Read, Update, Delete)
+          application using Angular. We will cover everything from setting up a
+          new Angular project to customizing components, adding styling, and
+          implementing the CRUD operations.
+        </p>
+      </section>
+
+      <section id="app-setup" class="section">
+        <h2 class="section-title">Setting Up the Application</h2>
+        <p class="section-text">
+          We will start by creating a new Angular project and generating the
+          necessary components and services.
+        </p>
+        <h3 class="subsection-title">Creating a New Angular Project</h3>
+        <p class="section-text">
+          Open your terminal and use the Angular CLI to create a new project:
+        </p>
+        <pre class="code-block">
+<code>
+ng new crud-app
+cd crud-app
+</code>
+      </pre>
+        <h3 class="subsection-title">Generating Components and Services</h3>
+        <p class="section-text">
+          Generate the components and service required for our CRUD application:
+        </p>
+        <pre class="code-block">
+<code>
+ng generate component user-list
+ng generate component user-form
+ng generate service user
+</code>
+</pre>
+        <p class="section-text">These commands will create the following:</p>
+        <ul class="section-list">
+          <li class="section-list-item">
+            A <code class="code-snippet">UserListComponent</code> to display a
+            list of users.
+          </li>
+          <li class="section-list-item">
+            A <code class="code-snippet">UserFormComponent</code> to handle user
+            creation and editing.
+          </li>
+          <li class="section-list-item">
+            A <code class="code-snippet">UserService</code> to handle HTTP
+            requests and manage user data.
+          </li>
+        </ul>
+      </section>
+
+      <section id="model" class="section">
+        <h2 class="section-title">Defining the Model</h2>
+        <p class="section-text">
+          Define a TypeScript interface to represent the user data model. This
+          will be used throughout the application to ensure type safety.
+        </p>
+        <pre class="code-block">
+<code>
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+</code>
+      </pre>
+      </section>
+
+      <section id="user-service" class="section">
+        <h2 class="section-title">Creating the User Service</h2>
+        <p class="section-text">
+          The user service will manage data operations and handle HTTP requests
+          to the backend. Here’s how to set up the user service:
+        </p>
+        <pre class="code-block">
+<code>
+    import { Injectable } from '@angular/core';
+    import { HttpClient } from '@angular/common/http';
+    import { Observable } from 'rxjs';
+    import { User } from './user.model';
+    
+    @Injectable({
+      providedIn: 'root'
+    })
+    export class UserService {
+      private apiUrl = 'https://jsonplaceholder.typicode.com/users';
+    
+      constructor(private http: HttpClient) {}
+    
+      getUsers(): Observable&lt;User[]&gt; {
+        return this.http.get&lt;User[]&gt;(this.apiUrl);
+      }
+    
+      getUser(id: number): Observable&lt;User&gt; {
+        return this.http.get&lt;User&gt;(`${this.apiUrl}/${id}`);
+      }
+    
+      createUser(user: User): Observable&lt;User&gt; {
+        return this.http.post&lt;User&gt;(this.apiUrl, user);
+      }
+    
+      updateUser(user: User): Observable&lt;User&gt; {
+        return this.http.put&lt;User&gt;(`${this.apiUrl}/${user.id}`, user);
+      }
+    
+      deleteUser(id: number): Observable&lt;void&gt; {
+        return this.http.delete&lt;void&gt;(`${this.apiUrl}/${id}`);
+      }
+    }
+</code>
+      </pre>
+        <p class="section-text">In this service:</p>
+        <ul class="section-list">
+          <li class="section-list-item">
+            The <code class="code-snippet">getUsers</code> method retrieves all
+            users.
+          </li>
+          <li class="section-list-item">
+            The <code class="code-snippet">getUser</code> method retrieves a
+            single user by ID.
+          </li>
+          <li class="section-list-item">
+            The <code class="code-snippet">createUser</code> method adds a new
+            user.
+          </li>
+          <li class="section-list-item">
+            The <code class="code-snippet">updateUser</code> method updates an
+            existing user.
+          </li>
+          <li class="section-list-item">
+            The <code class="code-snippet">deleteUser</code> method removes a
+            user.
+          </li>
+        </ul>
+      </section>
+
+      <section id="user-list" class="section">
+        <h2 class="section-title">Building the User List Component</h2>
+        <p class="section-text">
+          The user list component will display all users in a table and provide
+          options to delete users. Here's how to set it up:
+        </p>
+        <pre class="code-block">
+<code>
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../user.service';
+import { User } from '../user.model';
+
+@Component({
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.css']
+})
+export class UserListComponent implements OnInit {
+  users: User[] = [];
+
+  constructor(private userService: UserService) {}
+
+  ngOnInit() {
+    this.userService.getUsers().subscribe(
+      (data: User[]) => this.users = data,
+      (error) => console.error('Error fetching users:', error)
+    );
+  }
+
+  deleteUser(id: number) {
+    this.userService.deleteUser(id).subscribe(
+      () => this.users = this.users.filter(user => user.id !== id),
+      (error) => console.error('Error deleting user:', error)
+    );
+  }
+}
+</code>
+      </pre>
+        <h3 class="subsection-title">User List Template</h3>
+        <p class="section-text">
+          The template for the user list component displays the user data and
+          includes a delete button for each user.
+        </p>
+        <pre class="code-block">
+<code>
+    &lt;!-- user-list.component.html --&gt;
+    &lt;h2&gt;User List&lt;/h2&gt;
+    &lt;table&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;ID&lt;/th&gt;
+          &lt;th&gt;Name&lt;/th&gt;
+          &lt;th&gt;Email&lt;/th&gt;
+          &lt;th&gt;Actions&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr *ngFor="let user of users"&gt;
+          &lt;td&gt;{{ user.id }}&lt;/td&gt;
+          &lt;td&gt;{{ user.name }}&lt;/td&gt;
+          &lt;td&gt;{{ user.email }}&lt;/td&gt;
+          &lt;td&gt;
+            &lt;button (click)="deleteUser(user.id)"&gt;Delete&lt;/button&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+</code>
+      </pre>
+      </section>
+
+      <section id="user-form" class="section">
+        <h2 class="section-title">Creating the User Form Component</h2>
+        <p class="section-text">
+          The user form component will handle the creation and editing of users.
+          It includes a form with input fields for user details.
+        </p>
+        <pre class="code-block">
+<code>
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from '../user.service';
+import { User } from '../user.model';
+
+@Component({
+  selector: 'app-user-form',
+  templateUrl: './user-form.component.html',
+  styleUrls: ['./user-form.component.css']
+})
+export class UserFormComponent implements OnInit {
+  user: User = { id: 0, name: '', email: '' };
+  isEditing: boolean = false;
+
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      const id = +params['id'];
+      if (id) {
+        this.isEditing = true;
+        this.userService.getUser(id).subscribe(
+          (data: User) => this.user = data,
+          (error) => console.error('Error fetching user:', error)
+        );
+      }
+    });
+  }
+
+  saveUser() {
+    if (this.isEditing) {
+      this.userService.updateUser(this.user).subscribe(
+        () => this.router.navigate(['/users']),
+        (error) => console.error('Error updating user:', error)
+      );
+    } else {
+      this.userService.createUser(this.user).subscribe(
+        () => this.router.navigate(['/users']),
+        (error) => console.error('Error creating user:', error)
+      );
+    }
+  }
+}
+</code>
+      </pre>
+        <h3 class="subsection-title">User Form Template</h3>
+        <p class="section-text">
+          The template for the user form component includes input fields for the
+          user’s name and email, along with a save button.
+        </p>
+        <pre class="code-block">
+<code>
+    &lt;!-- user-form.component.html --&gt;
+    &lt;h2&gt;{{ isEditing ? 'Edit User' : 'Add User' }}&lt;/h2&gt;
+    &lt;form (ngSubmit)="saveUser()" #userForm="ngForm"&gt;
+      &lt;label for="name"&gt;Name:&lt;/label&gt;
+      &lt;input id="name" name="name" [(ngModel)]="user.name" required /&gt;
+
+      &lt;label for="email"&gt;Email:&lt;/label&gt;
+      &lt;input id="email" name="email" [(ngModel)]="user.email" required /&gt;
+
+      &lt;button type="submit"&gt;Save&lt;/button&gt;
+    &lt;/form&gt;
+</code>
+      </pre>
+      </section>
+
+      <section id="routing" class="section">
+        <h2 class="section-title">Routing</h2>
+        <p class="section-text">
+          Set up routing to navigate between the user list and user form
+          components.
+        </p>
+        <pre class="code-block">
+<code>
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { UserListComponent } from './user-list/user-list.component';
+import { UserFormComponent } from './user-form/user-form.component';
+
+const routes: Routes = [
+  { path: 'users', component: UserListComponent },
+  { path: 'user/:id', component: UserFormComponent },
+  { path: 'user', component: UserFormComponent },
+  { path: '', redirectTo: '/users', pathMatch: 'full' }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {}
+</code>
+      </pre>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <ul class="footer-nav">
+        <li class="footer-nav-item">
+          <a href="contact.html" class="footer-link">Contact Information</a>
+        </li>
+        <li class="footer-nav-item">
+          <a href="index.html" class="footer-link">Course Home</a>
+        </li>
+        <li class="footer-nav-item">
+          <a
+            href="https://github.com/deyvidsalvatore"
+            class="footer-link"
+            target="_blank"
+            >Instructor Github</a
+          >
+        </li>
+        <li class="footer-nav-item">
+          <a
+            href="https://linkedin.com/in/deyvidsantosdevops"
+            class="footer-link"
+            target="_blank"
+            >Linkedin</a
+          >
+        </li>
+      </ul>
+      <p class="footer-text">
+        <em>DevAdventures - Learning For Free &copy; 2024</em>
+      </p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,310 @@
+@charset "UTF-8";
+@import url(responsive.css);
+
+/* Base Colors */
+:root {
+  --angular-red: #e74c3c; /* Angular primary red */
+  --angular-dark-red: #c0392b; /* Darker shade of red for hover/focus */
+  --angular-light-gray: #f5f5f5; /* Light gray for background */
+  --angular-dark-gray: #2c3e50; /* Dark gray for text and footer */
+  --angular-white: #ffffff; /* White for backgrounds and text */
+}
+
+html {
+  background-color: var(--angular-light-gray);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+  border: 0;
+  padding: 0;
+  color: var(--angular-dark-gray);
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 100%;
+  line-height: 1.4;
+  background-color: var(--angular-white);
+}
+
+h1 {
+  font-size: 1.3em;
+  color: var(--angular-dark-gray);
+}
+
+h2 {
+  font-size: 1.2em;
+  color: var(--angular-dark-gray);
+}
+
+h3 {
+  font-size: 1.1em;
+  color: var(--angular-dark-gray);
+}
+
+h4 {
+  font-size: 1em;
+  color: var(--angular-dark-gray);
+}
+
+p {
+  font-size: 1em;
+}
+
+dt {
+  font-weight: bold;
+}
+
+dd {
+  margin-bottom: 1em;
+}
+
+a img {
+  border: none;
+}
+
+a:link {
+  color: var(--angular-red);
+}
+
+a:visited {
+  color: var(--angular-red);
+}
+
+a:hover,
+a:active,
+a:focus {
+  text-decoration: none;
+  color: var(--angular-dark-red);
+}
+
+aside {
+  float: left;
+  width: 180px;
+  background: var(--angular-white);
+}
+
+aside.sidebar {
+  float: right;
+  width: 150px;
+  background: var(--angular-white);
+  padding-bottom: 20px;
+  padding-left: 20px;
+  margin-right: 1rem;
+  line-height: 2;
+}
+
+header {
+  background: var(--angular-dark-gray);
+  border-bottom: 2px solid var(--angular-red);
+  padding-bottom: 0.4em;
+  font-family: sans-serif;
+}
+
+.header-banner {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  object-position: fit-content;
+  object-position: 80% 80%;
+  filter: brightness(90%) contrast(110%) saturate(100%);
+}
+
+.header-text {
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  color: var(--angular-white);
+  display: inline-block;
+}
+
+/* ~~ THE WELCOME LETTER ~~ */
+#welcome-letter {
+  background: var(--angular-white);
+  padding: 2em;
+  margin: 2em 0;
+  border-radius: 8px;
+}
+
+.welcome-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.welcome-title {
+  color: var(--angular-dark-gray);
+  border-bottom: 2px solid var(--angular-red);
+  padding-bottom: 0.5em;
+  margin-bottom: 1.5em;
+}
+
+.welcome-intro {
+  font-size: 1.2em;
+  margin-bottom: 1.5em;
+}
+
+.welcome-message {
+  margin-bottom: 1.5em;
+}
+
+.welcome-signature {
+  font-weight: bold;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+.welcome-author {
+  font-style: italic;
+  color: var(--angular-dark-gray);
+  margin-top: 1em;
+}
+
+/* ~~ CONTACT LIST ~~ */
+#contact-list {
+  background-color: var(--angular-white);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+#contact-list h2 {
+  font-family: "Helvetica Neue", sans-serif;
+  color: var(--angular-dark-gray);
+  font-size: 1.8em;
+  margin-bottom: 10px;
+}
+
+#contact-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#contact-list li {
+  margin-bottom: 10px;
+  font-size: 1em;
+  color: var(--angular-dark-gray);
+}
+
+#contact-list a {
+  color: var(--angular-red);
+  text-decoration: none;
+}
+
+#contact-list a:hover {
+  text-decoration: underline;
+}
+
+/*~~ INSTRUCTOR DESCRIPTION ~~ */
+#description {
+  background-color: var(--angular-white);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  line-height: 1.6;
+}
+
+#description h2 {
+  font-family: "Helvetica Neue", sans-serif;
+  color: var(--angular-dark-gray);
+  font-size: 1.8em;
+  border-bottom: 2px solid var(--angular-red);
+  padding-bottom: 0.5em;
+  margin-bottom: 1.5em;
+}
+
+#description p {
+  font-size: 1em;
+  color: var(--angular-dark-gray);
+  margin-top: 1rem;
+}
+
+/* ~~ THE ARTICLE ~~ */
+.section {
+  background: var(--angular-white);
+  padding: 2em;
+  margin: 2em 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  color: var(--angular-dark-gray);
+  border-bottom: 2px solid var(--angular-red);
+  padding-bottom: 0.5em;
+  margin-bottom: 1.5em;
+}
+
+.subsection-title {
+  color: var(--angular-dark-gray);
+  font-size: 1.1em;
+  margin-top: 1.5em;
+}
+
+.section-text {
+  margin-bottom: 1.5em;
+}
+
+.code-snippet {
+  background-color: var(--angular-light-gray);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+}
+
+.code-block {
+  background-color: var(--angular-light-gray);
+  padding: 1em;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+/* ~~ THE FOOTER ~~ */
+footer {
+  position: static;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 1em 0;
+  background: var(--angular-dark-gray);
+  color: var(--angular-white);
+  clear: both;
+  border-top: 2px solid var(--angular-red);
+}
+
+footer ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+footer li {
+  display: inline-block;
+  padding: 0 1em;
+}
+
+footer a:link {
+  color: var(--angular-white);
+  text-decoration: none;
+}
+
+footer a:visited {
+  color: var(--angular-white);
+  text-decoration: none;
+}
+
+footer a:hover,
+footer a:focus,
+footer a:active {
+  text-decoration: underline;
+  color: var(--angular-red);
+}
+
+footer p {
+  text-align: center;
+}

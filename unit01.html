@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DEV001 - Unit 01 - Angular Concepts</title>
+    <link rel="stylesheet" href="_css/styles.css" type="text/css" />
+  </head>
+
+  <body>
+    <header class="header">
+      <img
+        class="header-banner img-bw"
+        src="_images/angular_low.png"
+        alt="Angular Logo"
+      />
+      <h1 class="header-text">DEV001: Unit 01 - Angular Concepts</h1>
+    </header>
+
+    <main class="main-content">
+      <!-- Sidebar Navigating-->
+      <section id="sidenavbar">
+        <article>
+          <aside class="sidebar">
+            <ul>
+              <li><a href="deventures.html">Dev Adventures</a></li>
+              <li><a href="unit01.html">Unit 01</a></li>
+              <li><a href="unit02.html">Unit 02</a></li>
+              <li><a href="unit03.html">Unit 03</a></li>
+              <li><a href="unit04.html">Unit 04</a></li>
+              <li><a href="https://deyvidsantos.vercel.app/">Blog</a></li>
+              <li><a href="https://github.com/deyvidsalvatore">Github</a></li>
+              <li><a href="index.html">Course Home</a></li>
+            </ul>
+          </aside>
+        </article>
+      </section>
+      <section id="what-is-angular" class="section">
+        <h2 class="section-title">What is Angular?</h2>
+        <p class="section-text">
+          Angular is a powerful, open-source web application framework developed
+          by Google. It is designed to build dynamic, single-page applications
+          (SPAs) with a rich user experience. Angular simplifies the development
+          process by providing a robust structure for managing data binding,
+          dependency injection, and modular development.
+        </p>
+        <p class="section-text">
+          Key features of Angular include its two-way data binding,
+          component-based architecture, and comprehensive set of tools for
+          testing, routing, and form handling. Angular’s declarative approach to
+          building user interfaces and its extensive ecosystem make it a popular
+          choice for developers creating complex web applications.
+        </p>
+      </section>
+
+      <section id="what-you-can-build" class="section">
+        <h2 class="section-title">What Can You Build with Angular?</h2>
+        <p class="section-text">
+          Angular enables developers to build a wide range of applications, from
+          simple single-page apps to complex enterprise solutions. Here are some
+          examples of what you can create with Angular:
+        </p>
+        <ul class="section-list">
+          <li class="section-list-item">
+            E-commerce platforms with interactive product catalogs and secure
+            checkout processes.
+          </li>
+          <li class="section-list-item">
+            Content management systems (CMS) for managing and displaying
+            content.
+          </li>
+          <li class="section-list-item">
+            Customer relationship management (CRM) systems with advanced data
+            visualization.
+          </li>
+          <li class="section-list-item">
+            Real-time data dashboards for monitoring and analytics.
+          </li>
+          <li class="section-list-item">
+            Social media applications with dynamic content feeds and user
+            interactions.
+          </li>
+        </ul>
+        <p class="section-text">
+          Angular’s rich feature set and scalability make it an excellent choice
+          for building both large-scale and small-scale applications.
+        </p>
+      </section>
+
+      <section id="components" class="section">
+        <h2 class="section-title">Components</h2>
+        <p class="section-text">
+          Components are the fundamental building blocks of Angular
+          applications. Each component is an encapsulated unit of the user
+          interface and consists of three main parts:
+        </p>
+        <ul class="section-list">
+          <li class="section-list-item">
+            <strong>Template:</strong> Defines the view of the component using
+            HTML.
+          </li>
+          <li class="section-list-item">
+            <strong>Class:</strong> Contains the logic and data for the
+            component written in TypeScript.
+          </li>
+          <li class="section-list-item">
+            <strong>Styles:</strong> Provides styling to the component’s view
+            using CSS.
+          </li>
+        </ul>
+        <p class="section-text">
+          Angular uses a declarative approach to building UIs by combining these
+          three parts into a single, cohesive unit. This modular structure
+          promotes reusability and maintainability.
+        </p>
+
+        <h3 class="subsection-title">Creating a Component</h3>
+        <p class="section-text">
+          To create a new component, use the Angular CLI command
+          <code class="code-snippet">ng generate component</code>. This command
+          generates a component with a TypeScript class, HTML template, and CSS
+          file.
+        </p>
+        <pre class="code-block">
+<code>
+ng generate component my-component
+</code>
+        </pre>
+        <p class="section-text">
+          This will create a new component called
+          <code class="code-snippet">MyComponent</code> in the
+          <code class="code-snippet">src/app/my-component</code> directory. The
+          component class contains the logic and data, while the HTML template
+          defines the structure, and the CSS file provides the styling.
+        </p>
+        <h3 class="subsection-title">Example: Simple Component</h3>
+        <p class="section-text">
+          Here’s a basic example of a component in Angular:
+        </p>
+        <pre class="code-block">
+<code>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-hello-world',
+  template: '&lt;h1&gt;Hello, {{ name }}!&lt;/h1&gt;',
+  styles: ['h1 { color: blue; }']
+})
+export class HelloWorldComponent {
+  name: string = 'Angular';
+}
+</code>
+        </pre>
+        <p class="section-text">
+          In this example, the
+          <code class="code-snippet">HelloWorldComponent</code> displays a
+          simple greeting message. The
+          <code class="code-snippet">name</code> property is bound to the
+          template, showing "Hello, Angular!" with blue text.
+        </p>
+      </section>
+
+      <section id="directives" class="section">
+        <h2 class="section-title">Directives</h2>
+        <p class="section-text">
+          Directives are special markers in Angular templates that extend HTML
+          functionality. They can manipulate the DOM or enhance the behavior of
+          elements. Angular has several types of directives:
+        </p>
+        <ul class="section-list">
+          <li class="section-list-item">
+            <strong>Structural Directives:</strong> Change the structure of the
+            DOM by adding or removing elements, such as
+            <code class="code-snippet">*</code>ngIf<code class="code-snippet"
+              >*</code
+            >
+            and <code class="code-snippet">*</code>ngFor<code
+              class="code-snippet"
+              >*</code
+            >.
+          </li>
+          <li class="section-list-item">
+            <strong>Attribute Directives:</strong> Change the appearance or
+            behavior of elements, such as the
+            <code class="code-snippet">*</code>ngClass<code class="code-snippet"
+              >*</code
+            >
+            directive.
+          </li>
+          <li class="section-list-item">
+            <strong>Custom Directives:</strong> User-defined directives that can
+            be created to encapsulate reusable behavior.
+          </li>
+        </ul>
+        <h3 class="subsection-title">Using Built-in Directives</h3>
+        <p class="section-text">
+          Angular provides several built-in directives. For example:
+        </p>
+        <pre class="code-block">
+<code>
+&lt;div *ngIf="isVisible"&gt;This will be shown if isVisible is true.&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li *ngFor="let item of items"&gt;{{ item }}&lt;/li&gt;
+&lt;/ul&gt;
+</code>
+        </pre>
+        <p class="section-text">
+          The <code class="code-snippet">*</code>ngIf<code class="code-snippet"
+            >*</code
+          >
+          directive conditionally includes a template, while the
+          <code class="code-snippet">*</code>ngFor<code class="code-snippet"
+            >*</code
+          >
+          directive iterates over a list of items to display each one.
+        </p>
+      </section>
+
+      <section id="services" class="section">
+        <h2 class="section-title">Services</h2>
+        <p class="section-text">
+          Services in Angular are used to share data and functionality across
+          different components. They are ideal for handling business logic, data
+          access, and other reusable functionalities. Services are typically
+          used in conjunction with Angular’s dependency injection system, which
+          allows components and other services to be easily injected into each
+          other.
+        </p>
+        <h3 class="subsection-title">Creating a Service</h3>
+        <p class="section-text">
+          To create a new service, use the Angular CLI command
+          <code class="code-snippet">ng generate service</code>. This command
+          generates a service with a TypeScript class that can be injected into
+          components or other services.
+        </p>
+        <pre class="code-block">
+<code>
+ng generate service my-service
+</code>
+        </pre>
+        <p class="section-text">
+          The created service can be injected into components using Angular’s
+          dependency injection system. For example:
+        </p>
+        <pre class="code-block">
+<code>
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class DataService {
+  private data: string[] = ['Item 1', 'Item 2', 'Item 3'];
+
+  getData(): string[] {
+    return this.data;
+  }
+}
+</code>
+        </pre>
+        <p class="section-text">
+          In this example, the
+          <code class="code-snippet">DataService</code> class provides a method
+          to retrieve an array of data. This service can be injected into
+          components to access the data.
+        </p>
+      </section>
+
+      <section id="summary" class="section">
+        <h2 class="section-title">Summary</h2>
+        <p class="section-text">
+          In this unit, you have explored the fundamental concepts of Angular,
+          including components, directives, and services. These building blocks
+          are essential for creating efficient and scalable Angular
+          applications. Understanding how to use components to manage the user
+          interface, directives to extend HTML functionality, and services to
+          share data and logic will set a strong foundation for more advanced
+          Angular topics.
+        </p>
+        <p class="section-text">
+          In the next unit, we will delve into Angular routing, which allows you
+          to manage navigation within your application, and advanced component
+          interactions. Be sure to complete the exercises provided in the
+          <strong>Resources</strong> section to practice and reinforce your
+          understanding of these concepts.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <ul class="footer-nav">
+        <li class="footer-nav-item">
+          <a href="contact.html" class="footer-link">Contact Information</a>
+        </li>
+        <li class="footer-nav-item">
+          <a href="index.html" class="footer-link">Course Home</a>
+        </li>
+        <li class="footer-nav-item">
+          <a
+            href="https://github.com/deyvidsalvatore"
+            class="footer-link"
+            target="_blank"
+            >Instructor Github</a
+          >
+        </li>
+        <li class="footer-nav-item">
+          <a
+            href="https://linkedin.com/in/deyvidsantosdevops"
+            class="footer-link"
+            target="_blank"
+            >Linkedin</a
+          >
+        </li>
+      </ul>
+      <p class="footer-text">
+        <em>DevAdventures - Learning For Free &copy; 2024</em>
+      </p>
+    </footer>
+  </body>
+</html>
